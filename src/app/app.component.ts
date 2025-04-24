@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { CompanyCardComponent } from "./core/components/company-card";
 import { Header } from "./core/components/header";
 import { Footer } from "./core/components/footer";
+import { RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-root',
-  imports: [CompanyCardComponent, Header, Footer],
+  imports: [RouterOutlet, Header, Footer],
   template: `
     <cua-header />
     <main class="main">
-      <company-card />
+      <router-outlet />
     </main>
     <cua-footer />
   `,

@@ -3,5 +3,5 @@ export type Company = {
   techStack: string[];
   careerSite: string;
   workMode: string;
-  companyUrl: string;
+  companySite: string;
 }

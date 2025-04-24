@@ -12,6 +12,6 @@ import { ThemeService } from "../services/theme";
   `,
 })
 export class Footer {
-  currentYear = signal(new Date().getFullYear());
+  readonly currentYear = signal(new Date().getFullYear());
   readonly themeService = inject(ThemeService);
 }

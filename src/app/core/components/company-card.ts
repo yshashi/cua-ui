@@ -9,7 +9,7 @@ import { ThemeService } from "../services/theme";
     <article
       class="flex flex-col justify-start items-start p-6 mx-auto my-0 w-full rounded-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out max-w-[360px] min-w-[360px] flex-shrink-0 shadow-md hover:shadow-lg dark:bg-[#151b23]"
     >
-      <h2 class="mb-4 text-xl font-semibold">{{ 'Company Name' }}</h2>
+      <h2 class="mb-4 text-xl font-semibold">{{ company().name }}</h2>
       <section class="mb-4 w-full">
         <h3
           class="text-sm font-medium text-gray-600 dark:text-gray-400"
@@ -17,7 +17,7 @@ import { ThemeService } from "../services/theme";
           Tech Stack
         </h3>
         <div class="flex flex-wrap gap-2 mt-2">
-          @for (tech of ['Angular', 'React', 'Vue']; track tech) {
+          @for (tech of company().techStack; track tech) {
             <span
               class="px-2 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded-xl dark:bg-gray-800 dark:text-gray-200"
             >
@@ -32,14 +32,14 @@ import { ThemeService } from "../services/theme";
         >
           Work Mode
         </h3>
-        <p class="mt-1 text-gray-800 dark:text-gray-200">{{ 'Remote' }}</p>
+        <p class="mt-1 text-gray-800 dark:text-gray-200">{{ company().workMode }}</p>
       </section>
       <div class="flex flex-col gap-3 pt-4 mt-auto w-full md:flex-row">
         <a
           class="py-3 text-base font-medium text-center text-white no-underline bg-[#dd0031] hover:bg-[#c3002f] rounded-md transition-colors duration-200 w-full md:w-1/2"
           target="_blank"
           rel="noopener noreferrer"
-          [href]="'https://www.careerbuilder.com'"
+          [href]="company().careerSite"
         >
           Careers
         </a>
@@ -47,7 +47,7 @@ import { ThemeService } from "../services/theme";
           class="py-3 text-base font-medium text-center text-white no-underline rounded-md transition-colors bg-[#3a3a3a] hover:bg-[#2a2a2a] duration-200 w-full md:w-1/2"
           target="_blank"
           rel="noopener noreferrer"
-          [href]="'https://companysite.com'"
+          [href]="company().companySite"
         >
           Company Site
         </a>
@@ -56,6 +56,6 @@ import { ThemeService } from "../services/theme";
   `
 })
 export class CompanyCardComponent {
-  company = input<Company>();
+  company = input.required<Company>();
   readonly themeService = inject(ThemeService);
 }
