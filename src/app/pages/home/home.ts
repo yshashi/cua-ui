@@ -1,19 +1,19 @@
-import { Component, resource } from "@angular/core";
+import { Component, computed, resource, signal } from "@angular/core";
 import { CompanyCardComponent } from "../../core/components/company-card";
 import { Company } from "../../core/types/company";
+import { SearchCompany } from "../../core/components/search-company";
 @Component({
   selector: 'home',
   template: `
-  <section
-      class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-    >
-    @for (company of companies.value(); track company.name) {
+    <search-company (searchQueryChange)="onSearchQueryChange($event)" />
+    <section class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+    @for (company of filteredCompanies(); track company.name) {
       <company-card [company]="company" />
     }
     </section>
   `,
   styles: ``,
-  imports: [CompanyCardComponent],
+  imports: [CompanyCardComponent, SearchCompany],
 })
 export default class Home {
   companies = resource<Company[], unknown>({
@@ -23,4 +23,14 @@ export default class Home {
     },
     defaultValue: []
   })
+  filteredCompanies = computed(() => {
+    return this.companies.value().filter(company => {
+      return company.name.toLowerCase().includes(this.searchQuery().toLowerCase());
+    });
+  })
+  searchQuery = signal('');
+
+  onSearchQueryChange(searchQuery: string) {
+    this.searchQuery.set(searchQuery);
+  }
 }
